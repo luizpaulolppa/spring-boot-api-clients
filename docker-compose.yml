@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:12.1
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: clients_dev
+    ports:
+    - 5432:5432
+    expose:
+    - '5432'
