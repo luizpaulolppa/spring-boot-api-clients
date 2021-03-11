@@ -2,9 +2,11 @@ package br.com.clients.microservices.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,10 +19,11 @@ public class CityEntity {
 	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable = false)
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(nullable = false)
 	private StateEntity state;
 	
 	public Long getId() {

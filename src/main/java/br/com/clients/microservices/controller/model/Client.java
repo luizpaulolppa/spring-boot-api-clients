@@ -11,6 +11,7 @@ public class Client {
 	private String name;
 	private LocalDate birthDate;
 	private Integer age;
+	private String sex;
 	private City city;
 	
 	public Long getId() {
@@ -51,5 +52,13 @@ public class Client {
 	
 	public void setCity(City city) {
 		this.city = city;
+	}
+	
+	public String getSex() {
+		return sex;
+	}
+	
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 }

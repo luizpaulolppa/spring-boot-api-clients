@@ -16,7 +16,7 @@ public class StateEntity {
 	@Column(name = "ID")
 	private Long id;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable = false)
 	private String name;
 	
 	public Long getId() {
