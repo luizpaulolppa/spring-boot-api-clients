@@ -1,6 +1,7 @@
 package br.com.clients.microservices.domain.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,8 +30,15 @@ public class ClientService {
 	@Autowired
 	private CityRepository cityRepository;
 
-	public List<Client> list() {
-		List<ClientEntity> clients = clientRepository.findAll();
+	public List<Client> list(String name) {
+		List<ClientEntity> clients = new ArrayList<>();
+		
+		if (name != null && !name.isEmpty()) {
+			clients = clientRepository.findByName("%" + name + "%");
+		} else {
+			clients = clientRepository.findAll();
+		}
+		
 		return clients.stream().map((client) -> mapClient(client)).collect(Collectors.toList());
 	}
 

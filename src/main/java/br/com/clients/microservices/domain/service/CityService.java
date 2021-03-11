@@ -1,5 +1,6 @@
 package br.com.clients.microservices.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +28,16 @@ public class CityService {
 	@Autowired
 	private StateRepository stateRepository;
 
-	public List<City> list() {
-		List<CityEntity> cities = cityRepository.findAll();
+	public List<City> list(String name) {
+		List<CityEntity> cities = new ArrayList<>();
+		;
+
+		if (name != null && !name.isEmpty()) {
+			cities = cityRepository.findByName("%" + name + "%");
+		} else {
+			cities = cityRepository.findAll();
+		}
+
 		return cities.stream().map((city) -> mapCity(city)).collect(Collectors.toList());
 	}
 
@@ -126,15 +135,27 @@ public class CityService {
 	public void delete(Long id) {
 		try {
 			Optional<CityEntity> optionalCity = cityRepository.findById(id);
-			
+
 			if (optionalCity.isEmpty()) {
 				throw new EntityNotFoundException();
 			}
-			
+
 			cityRepository.delete(optionalCity.get());
 		} catch (DataIntegrityViolationException e) {
 			throw new EntityConflictException("Entity in use");
 		}
+	}
+
+	public List<City> findCitiesByStateId(Long id) {
+		Optional<StateEntity> optionalState = stateRepository.findById(id);
+
+		if (optionalState.isEmpty()) {
+			throw new EntityNotFoundException();
+		}
+
+		List<CityEntity> cities = cityRepository.findByState(optionalState.get());
+
+		return cities.stream().map((city) -> mapCity(city)).collect(Collectors.toList());
 	}
 
 }

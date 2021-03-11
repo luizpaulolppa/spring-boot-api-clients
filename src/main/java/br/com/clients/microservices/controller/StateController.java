@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.clients.microservices.controller.model.City;
 import br.com.clients.microservices.controller.model.ErrorMessage;
 import br.com.clients.microservices.controller.model.State;
 import br.com.clients.microservices.domain.exception.EntityBusinessException;
 import br.com.clients.microservices.domain.exception.EntityConflictException;
 import br.com.clients.microservices.domain.exception.EntityNotFoundException;
+import br.com.clients.microservices.domain.service.CityService;
 import br.com.clients.microservices.domain.service.StateService;
 
 @RestController
@@ -28,6 +30,9 @@ public class StateController {
 
 	@Autowired
 	private StateService stateService;
+	
+	@Autowired
+	private CityService cityService;
 
 	@GetMapping
 	public ResponseEntity<List<State>> list() {
@@ -35,13 +40,24 @@ public class StateController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<State> buscar(@PathVariable Long id) {
+	public ResponseEntity<State> find(@PathVariable Long id) {
 		try {
 			State state = stateService.findById(id);
 
 			return ResponseEntity.ok(state);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.noContent().build();
+		}
+	}
+	
+	@GetMapping("/{id}/cities")
+	public ResponseEntity<List<City>> findCities(@PathVariable Long id) {
+		try {
+			List<City> cities = cityService.findCitiesByStateId(id);
+
+			return ResponseEntity.ok(cities);
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.clients.microservices.controller.model.City;
@@ -30,16 +31,14 @@ public class CityController {
 	private CityService cityService;
 
 	@GetMapping
-	public ResponseEntity<List<City>> list() {
-		return ResponseEntity.ok(cityService.list());
+	public ResponseEntity<List<City>> list(@RequestParam(required = false) String name) {
+		return ResponseEntity.ok(cityService.list(name));
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<City> find(@PathVariable Long id) {
 		try {
-			City city = cityService.findById(id);
-
-			return ResponseEntity.ok(city);
+			return ResponseEntity.ok(cityService.findById(id));
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.noContent().build();
 		}

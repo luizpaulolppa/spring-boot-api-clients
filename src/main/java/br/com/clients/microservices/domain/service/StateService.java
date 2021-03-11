@@ -13,6 +13,7 @@ import br.com.clients.microservices.domain.entity.StateEntity;
 import br.com.clients.microservices.domain.exception.EntityBusinessException;
 import br.com.clients.microservices.domain.exception.EntityConflictException;
 import br.com.clients.microservices.domain.exception.EntityNotFoundException;
+import br.com.clients.microservices.domain.repository.CityRepository;
 import br.com.clients.microservices.domain.repository.StateRepository;
 
 @Service
@@ -20,6 +21,9 @@ public class StateService {
 
 	@Autowired
 	private StateRepository stateRepository;
+	
+	@Autowired
+	private CityRepository cityRepository;
 
 	public List<State> list() {
 		List<StateEntity> states = stateRepository.findAll();
