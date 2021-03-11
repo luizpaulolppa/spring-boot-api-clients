@@ -15,11 +15,11 @@ import br.com.clients.microservices.controller.model.State;
 import br.com.clients.microservices.domain.entity.CityEntity;
 import br.com.clients.microservices.domain.entity.ClientEntity;
 import br.com.clients.microservices.domain.entity.StateEntity;
-import br.com.clients.microservices.domain.enun.SexType;
 import br.com.clients.microservices.domain.exception.EntityBusinessException;
 import br.com.clients.microservices.domain.exception.EntityNotFoundException;
 import br.com.clients.microservices.domain.repository.CityRepository;
 import br.com.clients.microservices.domain.repository.ClientRepository;
+import br.com.clients.microservices.infraestructure.utils.SexType;
 
 @Service
 public class ClientService {

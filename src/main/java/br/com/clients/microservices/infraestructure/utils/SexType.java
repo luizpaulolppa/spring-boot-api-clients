@@ -1,4 +1,4 @@
-package br.com.clients.microservices.domain.enun;
+package br.com.clients.microservices.infraestructure.utils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -14,7 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.clients.microservices.domain.enun.SexType;
+import br.com.clients.microservices.infraestructure.utils.SexType;
 
 @Entity
 @Table(name = "CLIENT")
