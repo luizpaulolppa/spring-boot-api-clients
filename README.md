@@ -10,7 +10,7 @@
 ### 4 - Na sua IDE de preferência selecione a opção de importar um projeto Maven e selecione o diretório do projeto baixado.
 ### 5 - A importação deve demorar um pouco pois é baixado vários arquivos do projeto.
 ### 6 - Após o download dos arquivos você pode abrir a classe SpringBootApiClientsApplication.java e executá-lá como Java Application.
-### 7 - Após este passo será exposto na porta 8080 a API. Para saber mais sobre os recursos criados você pode acessar este [link](https://documenter.getpostman.com/view/1354700/Tz5p6yNY#c66510cf-849a-49c7-ba89-40fbd737378e) com uma documentação.
+### 7 - Após este passo será exposto na porta 8080 a API. Para saber mais sobre os recursos criados você pode acessar este [link](https://documenter.getpostman.com/view/1354700/Tz5p6yNY#c66510cf-849a-49c7-ba89-40fbd737378e) com a documentação.
 #
 ## Gerar build para deploy
 ### 1 - Dentro da pasta execute o comando `.\mvnw clean package`
