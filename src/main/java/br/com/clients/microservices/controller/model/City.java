@@ -11,9 +11,10 @@ public class City {
 	
 	public City() { }
 	
-	public City(Long id, String name) {
+	public City(Long id, String name, State state) {
 		this.id = id;
 		this.name = name;
+		this.state = state;
 	}
 	
 	public Long getId() {

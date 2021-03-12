@@ -30,7 +30,6 @@ public class CityService {
 
 	public List<City> list(String name) {
 		List<CityEntity> cities = new ArrayList<>();
-		;
 
 		if (name != null && !name.isEmpty()) {
 			cities = cityRepository.findByName("%" + name + "%");
