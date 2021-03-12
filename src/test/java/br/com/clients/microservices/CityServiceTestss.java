@@ -15,7 +15,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import br.com.clients.microservices.SpringBootApiClientsApplication;
 import br.com.clients.microservices.controller.model.City;
 import br.com.clients.microservices.controller.model.State;
 import br.com.clients.microservices.domain.exception.EntityBusinessException;
