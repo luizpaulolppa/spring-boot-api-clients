@@ -1,4 +1,4 @@
-package br.com.springbootapiclients;
+package br.com.clients.microservices;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,7 +16,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.clients.microservices.SpringBootApiClientsApplication;
-import br.com.clients.microservices.controller.model.City;
 import br.com.clients.microservices.controller.model.State;
 import br.com.clients.microservices.domain.exception.EntityBusinessException;
 import br.com.clients.microservices.domain.service.CityService;
@@ -27,7 +26,7 @@ import br.com.clients.microservices.domain.service.StateService;
 @SpringBootTest(classes = SpringBootApiClientsApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = "test")
 @PropertySource("application-test.properties")
-class CityServiceTestss {
+class StateServiceTests {
 
 	@Autowired
 	private StateService stateService;
@@ -46,69 +45,61 @@ class CityServiceTestss {
 	}
 
 	@Test
-	void shouldCreateCityWithSuccess() {
-		State state = stateService.save(new State(null, "PR"));
-		City newCity = new City();
-		newCity.setName("Curitiba");
-		newCity.setState(state);
+	void shouldCreateStateWithSuccess() {
+		State newState = new State();
+		newState.setName("PR");
 
-		newCity = cityService.save(newCity);
+		newState = stateService.save(newState);
 
-		assertThat(newCity).isNotNull();
-		assertThat(newCity.getId()).isNotNull();
-		assertThat(newCity.getName()).isEqualTo("Curitiba");
-		assertThat(newCity.getState().getId()).isEqualTo(state.getId());
-		assertThat(newCity.getState().getName()).isEqualTo(state.getName());
+		assertThat(newState).isNotNull();
+		assertThat(newState.getId()).isNotNull();
+		assertThat(newState.getName()).isEqualTo("PR");
 	}
 
 	@Test
-	void shouldNotCreateCityWithoutName() {
-		State state = stateService.save(new State(null, "PR"));
-		City newCity = new City();
-		newCity.setName("");
-		newCity.setState(state);
+	void shouldNotCreateStateWithoutName() {
+		State newState = new State();
+		newState.setName("");
 
-		assertThrows(EntityBusinessException.class, () -> cityService.save(newCity));
+		assertThrows(EntityBusinessException.class, () -> stateService.save(newState));
 	}
 
 	@Test
-	void shouldVerifyFindByCityId() {
+	void shouldVerifyFindByStateId() {
 		State state = stateService.save(new State(null, "PR"));
-		City newCity = new City();
-		newCity.setName("Curitiba");
-		newCity.setState(state);
-		newCity = cityService.save(newCity);
-		
-		newCity = cityService.findById(newCity.getId());
+		assertThat(state).isNotNull();
+		assertThat(state.getId()).isNotNull();
+		assertThat(state.getName()).isEqualTo("PR");
 
-		assertThat(newCity).isNotNull();
-		assertThat(newCity.getId()).isEqualTo(newCity.getId());
-		assertThat(newCity.getName()).isEqualTo("Curitiba");
+		state = stateService.findById(state.getId());
+
+		assertThat(state).isNotNull();
+		assertThat(state.getId()).isEqualTo(state.getId());
+		assertThat(state.getName()).isEqualTo("PR");
 	}
 
 	@Test
-	void shouldVerifyFindAllCities() {
-		State state = stateService.save(new State(null, "PR"));
-		cityService.save(new City(null, "Curitiba", state));
-		cityService.save(new City(null, "Auto Piquiri", state));
+	void shouldVerifyFindAllStates() {
+		stateService.save(new State(null, "PR"));
+		stateService.save(new State(null, "SP"));
+		stateService.save(new State(null, "MT"));
 
-		List<City> cities = cityService.list(null);
+		List<State> states = stateService.list();
 
-		assertThat(cities.size()).isEqualTo(2);
+		assertThat(states.size()).isEqualTo(3);
 	}
 	
 	@Test
-	void shouldVerifyIfWasDeletedCity() {
-		assertThat(cityService.list(null).size()).isEqualTo(0);
+	void shouldVerifyIfWasDeletedState() {
+		assertThat(stateService.list().size()).isEqualTo(0);
 		
 		State state = stateService.save(new State(null, "PR"));
-		City city = cityService.save(new City(null, "Curitiba", state));
 		
-		assertThat(cityService.list(null).size()).isEqualTo(1);
+		assertThat(stateService.list().size()).isEqualTo(1);
 
-		cityService.delete(city.getId());
+		stateService.delete(state.getId());
 
-		assertThat(cityService.list(null).size()).isEqualTo(0);
+		assertThat(stateService.list().size()).isEqualTo(0);
 	}
 
 }
